@@ -2,6 +2,7 @@ package cn.choleece.bing.common.config;
 
 import cn.choleece.bing.common.jwt.JwtFilter;
 import cn.choleece.bing.common.shiro.BingRealm;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -25,6 +26,13 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
+    @Bean
+    EhCacheManager getEhCacheManager() {
+        EhCacheManager cacheManager = new EhCacheManager();
+        cacheManager.setCacheManagerConfigFile("classpath:ehcache.xml");
+        return cacheManager;
+    }
+
     @Bean("bingRealm")
     public BingRealm getRealm() {
         return new BingRealm();
@@ -35,6 +43,7 @@ public class ShiroConfig {
 
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
         manager.setRealm(bingRealm);
+        manager.setCacheManager(getEhCacheManager());
 
         DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
         DefaultSessionStorageEvaluator evaluator = new DefaultSessionStorageEvaluator();

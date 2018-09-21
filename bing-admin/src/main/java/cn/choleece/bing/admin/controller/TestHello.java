@@ -1,6 +1,8 @@
 package cn.choleece.bing.admin.controller;
 
 import cn.choleece.bing.common.util.HttpUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -17,8 +19,11 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class TestHello {
 
+    private static final Logger logger = LogManager.getLogger("optInfo");
+
     @GetMapping("/hello")
     public String hello(HttpServletRequest request) {
+        logger.info("ddd");
         System.out.println("hello" + HttpUtil.getHttpHeaderValue(request, "header"));
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken("ddd", "ddd");

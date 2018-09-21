@@ -2,6 +2,7 @@ package cn.choleece.bing.common.shiro;
 
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
@@ -23,12 +24,14 @@ public class BingRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         // 将权限放到subject里
-        return null;
+        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+        return simpleAuthorizationInfo;
     }
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         // 验证权限
-        return new SimpleAuthenticationInfo(authenticationToken, authenticationToken, "bingRealm");
+        System.out.println(authenticationToken.getPrincipal());
+        return new SimpleAuthenticationInfo(authenticationToken, authenticationToken.getCredentials(), "bingRealm");
     }
 }

@@ -23,9 +23,9 @@ public class FilterConfig {
         filterRegistrationBean.setOrder(1);
         filterRegistrationBean.setEnabled(true);
         filterRegistrationBean.addUrlPatterns("/**");
-        Map<String, String> initPapameters = new HashMap<>(1);
-        initPapameters.put("excludedPages", "/topic/update,/topic/save,/goods/save,/goods/update");
-        filterRegistrationBean.setInitParameters(initPapameters);
+        Map<String, String> initParameters = new HashMap<>(1);
+        initParameters.put("excludedPages", "/topic/update,/topic/save,/goods/save,/goods/update");
+        filterRegistrationBean.setInitParameters(initParameters);
         return filterRegistrationBean;
     }
 }
