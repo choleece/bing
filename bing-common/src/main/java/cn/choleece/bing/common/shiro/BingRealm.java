@@ -7,7 +7,9 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
 /**
- * Created by choleece on 2018/9/15.
+ * bing custom realm
+ * @author choleece
+ * @date 2018/9/15
  */
 public class BingRealm extends AuthorizingRealm {
 
@@ -23,15 +25,12 @@ public class BingRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        // 将权限放到subject里
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         return simpleAuthorizationInfo;
     }
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        // 验证权限
-        System.out.println(authenticationToken.getPrincipal());
-        return new SimpleAuthenticationInfo(authenticationToken, authenticationToken.getCredentials(), "bingRealm");
+        return new SimpleAuthenticationInfo(authenticationToken, authenticationToken.getCredentials(), "realm");
     }
 }

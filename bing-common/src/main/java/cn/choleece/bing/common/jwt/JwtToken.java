@@ -4,9 +4,13 @@ import org.apache.shiro.authc.AuthenticationToken;
 
 /**
  * jwt token
- * Created by choleece on 2018/9/15.
+ *
+ * @author choleece
+ * @date 2018/9/15
  */
 public class JwtToken implements AuthenticationToken {
+
+    private static final long serialVersionUID = -8129821562779712501L;
 
     private String token;
 

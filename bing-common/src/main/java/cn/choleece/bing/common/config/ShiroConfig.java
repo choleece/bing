@@ -33,16 +33,25 @@ public class ShiroConfig {
         return cacheManager;
     }
 
-    @Bean("bingRealm")
+    /**
+     * 这里暂时现不注册到spring context里，在每一个应用里单独继承BingRealm实现，然后注册进spring context
+     * 如果要使用的话，则在方法上加上@Bean("realm")
+     * @return
+     */
     public BingRealm getRealm() {
         return new BingRealm();
     }
 
+    /**
+     * 配置securityManager
+     * @param realm 这里的realm是各项目根据自己的情况自己实现继承BingRealm实现，但是bean的名称都得是realm，有各项目自己注册
+     * @return
+     */
     @Bean("securityManager")
-    public DefaultWebSecurityManager getManager(BingRealm bingRealm) {
+    public DefaultWebSecurityManager getManager(BingRealm realm) {
 
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
-        manager.setRealm(bingRealm);
+        manager.setRealm(realm);
         manager.setCacheManager(getEhCacheManager());
 
         DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
