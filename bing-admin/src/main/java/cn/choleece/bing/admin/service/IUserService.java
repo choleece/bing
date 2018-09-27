@@ -12,7 +12,7 @@ public interface IUserService {
     /**
      * 通过用户名获取用户，在注册或创建用户时，用户名不能重复
      * @param username
-     * @return
+     * @return Exception
      */
-    SysUser getUserByName(String username) throws Exception;
+    SysUser getUserByName(String username);
 }

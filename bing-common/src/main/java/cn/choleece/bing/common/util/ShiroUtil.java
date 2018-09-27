@@ -1,6 +1,6 @@
 package cn.choleece.bing.common.util;
 
-import cn.choleece.bing.common.entity.BaseEntity;
+import cn.choleece.bing.common.entity.CurUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -10,7 +10,7 @@ import org.apache.shiro.subject.Subject;
  * @author choleece
  * @date 2018/9/17
  */
-public class ShiroUtil<T extends BaseEntity> {
+public class ShiroUtil {
 
     public static Subject getSubject() {
         return SecurityUtils.getSubject();
@@ -20,16 +20,16 @@ public class ShiroUtil<T extends BaseEntity> {
         return getSubject().getSession();
     }
 
-    public static <T> T getUserEntity() {
-        return (T) getSubject().getPrincipal();
+    public static CurUser getUserEntity() {
+        return (CurUser) getSubject().getPrincipal();
     }
 
-    public static long getUil() {
-        return ((BaseEntity) getSubject()).getUid();
+    public static long getUid() {
+        return ((CurUser) getSubject()).getUid();
     }
 
     public static String getToken() {
-        return ((BaseEntity) getSubject()).getToken();
+        return ((CurUser) getSubject()).getToken();
     }
 
 }
