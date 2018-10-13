@@ -7,6 +7,8 @@ package cn.choleece.bing.common.exceptions;
  */
 public class RRException extends RuntimeException {
 
+    private static final long serialVersionUID = -2049827065989643787L;
+
     private String msg;
 
     private int code = 500;

@@ -38,7 +38,7 @@ public class R extends HashMap<String, Object> implements Serializable {
     }
 
     public static R error() {
-        return error("服务器错误");
+        return error("服务器开小差了...");
     }
 
     /**

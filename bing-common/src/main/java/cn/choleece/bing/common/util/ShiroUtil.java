@@ -24,12 +24,16 @@ public class ShiroUtil {
         return (CurUser) getSubject().getPrincipal();
     }
 
-    public static long getUid() {
+    public static String getUid() {
         return ((CurUser) getSubject()).getUid();
     }
 
     public static String getToken() {
         return ((CurUser) getSubject()).getToken();
+    }
+
+    public static void setSessionAttritube(String key, Object value) {
+        getSession().setAttribute(key, value);
     }
 
 }

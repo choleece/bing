@@ -1,5 +1,6 @@
 package cn.choleece.bing.admin.shiro;
 
+import cn.choleece.bing.admin.constant.ResponseMsg;
 import cn.choleece.bing.admin.entity.SysUser;
 import cn.choleece.bing.admin.service.IUserService;
 import cn.choleece.bing.common.constant.CommonConstant;
@@ -46,15 +47,15 @@ public class AdminRealm extends BingRealm {
 
         SysUser user = userService.getUserByName(username);
         if (user == null) {
-            throw new UnknownAccountException("账号或或密码不正确");
+            throw new UnknownAccountException(ResponseMsg.INCORRECT_PASSWORD);
         }
 
         if (!PwdUtil.genPwd(pwd).equals(user.getPassword())) {
-            throw new IncorrectCredentialsException("账号或密码不正确");
+            throw new IncorrectCredentialsException(ResponseMsg.INCORRECT_PASSWORD);
         }
 
         if (INACTIVE_USER_STATUS.equals(user.getStatus())) {
-            throw new LockedAccountException("账号已锁定，请联系管理员");
+            throw new LockedAccountException(ResponseMsg.LOCKED_ACCOUNT);
         }
 
         /**
