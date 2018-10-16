@@ -6,9 +6,9 @@ import cn.choleece.bing.common.util.R;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 登录相关
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/index")
+@CrossOrigin
 public class IndexController extends BaseController {
     @Autowired
     private IUserService userService;
@@ -24,11 +25,15 @@ public class IndexController extends BaseController {
     private static final Logger logger = LogManager.getLogger(IndexController.class);
 
     @PostMapping("/login")
-    public R login(String username, String password) throws Exception {
+    public R login(String username, String password, HttpServletRequest request) throws Exception {
 
         logger.info("---user login--- username: " + username + " password: " + password);
-
-        return userService.login(username, password);
+        R r = userService.login(username, password);
+        if (r.get("code").equals(0)) {
+            request.getSession().setAttribute("name", "choleece");
+            request.getSession().getId();
+        }
+        return r;
     }
 
 }

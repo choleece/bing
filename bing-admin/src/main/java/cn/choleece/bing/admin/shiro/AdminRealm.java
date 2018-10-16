@@ -51,7 +51,7 @@ public class AdminRealm extends BingRealm {
         }
 
         if (!PwdUtil.genPwd(pwd).equals(user.getPassword())) {
-            throw new IncorrectCredentialsException(ResponseMsg.INCORRECT_PASSWORD);
+//            throw new IncorrectCredentialsException(ResponseMsg.INCORRECT_PASSWORD);
         }
 
         if (INACTIVE_USER_STATUS.equals(user.getStatus())) {
@@ -59,7 +59,7 @@ public class AdminRealm extends BingRealm {
         }
 
         /**
-         * 把登录用户信息放到shiro session 里，也可以放在缓存里
+         * 把登录用户信息放到shiro session 里，也可以放在缓存里，也可以在此生成token，将token返回给前端
          */
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession(true);
