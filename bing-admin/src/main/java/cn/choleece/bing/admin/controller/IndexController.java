@@ -28,12 +28,7 @@ public class IndexController extends BaseController {
     public R login(String username, String password, HttpServletRequest request) throws Exception {
 
         logger.info("---user login--- username: " + username + " password: " + password);
-        R r = userService.login(username, password);
-        if (r.get("code").equals(0)) {
-            request.getSession().setAttribute("name", "choleece");
-            request.getSession().getId();
-        }
-        return r;
+        return userService.login(username, password);
     }
 
 }

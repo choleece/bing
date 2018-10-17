@@ -4,6 +4,7 @@ import Link from 'umi/link';
 import { Checkbox, Alert, Icon } from 'antd';
 import Login from '../../components/Login';
 import styles from './Login.less';
+import config from '../../constant/config';
 
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 
@@ -76,11 +77,8 @@ class LoginPage extends Component {
           }}
         >
           <Tab key="account" tab="账户密码登录">
-            {login.status === 'error' &&
-              login.type === 'account' &&
-              !submitting &&
-              this.renderMessage('账户或密码错误（admin/888888）')}
-            <UserName name="userName" placeholder="admin/user" />
+            {login.code === config.return_code.fail && !submitting && this.renderMessage(login.msg)}
+            <UserName name="username" placeholder="admin/user" />
             <Password
               name="password"
               placeholder="888888/123456"

@@ -93,4 +93,11 @@ export default {
   cssnano: {
     mergeRules: false,
   },
+  proxy: {
+    '/api/': {
+      target: 'http://localhost:8080/',
+      changeOrigin: true,
+      pathRewrite: { '^/api': '' }, // /server/api/currentUser -> /api/currentUser
+    },
+  },
 };

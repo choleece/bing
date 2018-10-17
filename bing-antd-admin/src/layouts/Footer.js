@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Layout, Icon } from 'antd';
-import GlobalFooter from '@/components/GlobalFooter';
+import GlobalFooter from '../components/GlobalFooter';
 
 const { Footer } = Layout;
 const FooterView = () => (
@@ -8,15 +8,15 @@ const FooterView = () => (
     <GlobalFooter
       links={[
         {
-          key: 'Pro 首页',
-          title: 'Pro 首页',
-          href: 'https://pro.ant.design',
+          key: 'choleece 首页',
+          title: 'choleece 首页',
+          href: 'https://choleece.github.io',
           blankTarget: true,
         },
         {
           key: 'github',
           title: <Icon type="github" />,
-          href: 'https://github.com/ant-design/ant-design-pro',
+          href: 'https://github.com/choleece/bing',
           blankTarget: true,
         },
         {
@@ -28,7 +28,7 @@ const FooterView = () => (
       ]}
       copyright={
         <Fragment>
-          Copyright <Icon type="copyright" /> 2018 蚂蚁金服体验技术部出品
+          Copyright <Icon type="copyright" /> 2018 choleece 整理 ant design
         </Fragment>
       }
     />

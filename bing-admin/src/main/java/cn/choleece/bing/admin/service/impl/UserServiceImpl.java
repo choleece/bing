@@ -6,6 +6,7 @@ import cn.choleece.bing.admin.mapper.UserMapper;
 import cn.choleece.bing.admin.service.IUserService;
 import cn.choleece.bing.common.service.impl.BaseServiceImpl;
 import cn.choleece.bing.common.util.R;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -33,14 +34,22 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
 
     @Override
     public R login(String username, String pwd) {
+        if (StringUtils.isBlank(username)) {
+            return R.error(ResponseMsg.INCORRECT_PASSWORD);
+        }
         UsernamePasswordToken token = new UsernamePasswordToken(username, pwd);
         Subject subject = SecurityUtils.getSubject();
 
         try {
             subject.login(token);
-        } catch (Exception e) {
+        } catch (UnknownAccountException e) {
+            return R.error(e.getMessage());
+        } catch (IncorrectCredentialsException e) {
+            return R.error(e.getMessage());
+        } catch (LockedAccountException e) {
             return R.error(e.getMessage());
         }
+        // 执行token或者其他什么策略
         return R.ok();
     }
 }

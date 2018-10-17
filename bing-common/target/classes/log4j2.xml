@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--日志级别以及优先级顺序: OFF > TATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL-->
+<!--Configuration 后面的status，这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，会看到log4j2内部各种详细的输出-->
+<!--monitorInterval:Log4j能够自动检测修改配置 文件和重新配置自身 设置间隔秒数-->
+<Configuration status="WARN" monitorInterval="30">
+    <!--定义常量，已便在下边进行引用-->
+    <Properties>
+        <Property name="app_name">bing</Property>
+        <Property name="log_path">D:/logs/app/applogs</Property>
+    </Properties>
+
+    <!--先定义所有的appender-->
+    <Appenders>
+        <!--这个是输出控制台的配置-->
+        <Console name="Console" target="SYSTEM_OUT">
+            <!--输出日志的格式-->
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+
+        <!--文件会打印除所有信息，这个log每次运行程序会自动清空，由append属性决定，这个也挺有用的，适合临时测试使用-->
+        <File name="log" fileName="log/test.log" append="false">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M -%msg%xEx%n"/>
+        </File>
+
+        <!--这个会打印出所有的info及以下级别的信息，每次大小超过size，则这个size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
+        <RollingFile name="optInfo" fileName="${log_path}/${app_name}/${app_name}.log"
+                        filePattern="${log_path}/${app_name}/${date:yyyy-MM}/opt-%d{yyyy-MM-dd}-%i.log.gz">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch-->
+            <!--<ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>-->
+            <PatternLayout pattern="[%d{HH:mm:ss} [%p] - %l - %m%n"/>
+            <Policies>
+                <!--24小时压缩一次-->
+                <TimeBasedTriggeringPolicy interval="24" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <!--这个属性如果不设置，则默认为最多同一文件夹下7个文件，这里设置了20个-->
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+    </Appenders>
+    <!--定义所有的logger-->
+    <Loggers>
+        <!-- Async表示异步写日志，另起线程来写日志 -->
+        <AsyncRoot level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </AsyncRoot>
+        <!--这里的name，通过LogManager.getLogger("optInfo")获取，记录的格式，会如appender 为 optInfo的格式输出-->
+        <AsyncLogger name="optInfo" level="info" additivity="false">
+            <AppenderRef ref="optInfo"/>
+        </AsyncLogger>
+    </Loggers>
+</Configuration>

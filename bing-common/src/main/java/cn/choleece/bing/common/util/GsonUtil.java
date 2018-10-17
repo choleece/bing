@@ -33,4 +33,15 @@ public class GsonUtil {
     public static <T> List<T> stringToList(String str) {
         return new Gson().fromJson(str, new TypeToken<List<T>>() {}.getType());
     }
+
+    /**
+     * obj to string
+     * @param o
+     * @param t
+     * @param <T>
+     * @return
+     */
+    public static <T> String objToString(Object o, Class<T> t) {
+        return new Gson().toJson(o, t);
+    }
 }

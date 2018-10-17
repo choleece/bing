@@ -1,26 +1,29 @@
 import { routerRedux } from 'dva/router';
 import { stringify } from 'qs';
-import { fakeAccountLogin, getFakeCaptcha } from '@/services/api';
-import { setAuthority } from '@/utils/authority';
-import { getPageQuery } from '@/utils/utils';
-import { reloadAuthorized } from '@/utils/Authorized';
+import { fakeAccountLogin, getFakeCaptcha } from '../services/api';
+import { setAuthority } from '../utils/authority';
+import { getPageQuery } from '../utils/utils';
+import { reloadAuthorized } from '../utils/Authorized';
+
+import config from '../constant/config';
 
 export default {
   namespace: 'login',
 
-  state: {
-    status: undefined,
-  },
+  state: {},
 
   effects: {
     *login({ payload }, { call, put }) {
       const response = yield call(fakeAccountLogin, payload);
+      response.type = 'account';
+      response.currentAuthority = 'admin';
+
       yield put({
         type: 'changeLoginStatus',
         payload: response,
       });
       // Login successfully
-      if (response.status === 'ok') {
+      if (response.code === config.return_code.success) {
         reloadAuthorized();
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
@@ -70,8 +73,8 @@ export default {
       setAuthority(payload.currentAuthority);
       return {
         ...state,
-        status: payload.status,
-        type: payload.type,
+        code: payload.code,
+        msg: payload.msg,
       };
     },
   },
