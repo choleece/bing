@@ -4,7 +4,9 @@ import cn.choleece.bing.common.exceptions.RRException;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Created by choleece on 2018/9/17.
+ * sql预处理
+ * @author choleece
+ * @date 2018/9/17
  */
 public class SqlFilter {
 

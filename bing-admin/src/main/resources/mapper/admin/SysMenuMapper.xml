@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.choleece.bing.admin.mapper.SysMenuMapper">
+
+    <resultMap id="sysMenu" type="cn.choleece.bing.admin.entity.SysMenu">
+        <id property="menuId" column="menu_id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+        <result property="perms" column="perms"/>
+        <result property="type" column="type"/>
+        <result property="icon" column="icon"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="listUserMenu" resultMap="sysMenu">
+        select sm.parent_id, sm.name, sm.url, sm.icon
+        from sys_menu sm
+        inner join (
+            select srm.menu_id as menu_id
+            from sys_role_menu srm
+            inner join sys_user_role sur on srm.role_id = sur.role_id
+            where sur.user_id = '1'
+        ) t on t.menu_id = sm.menu_id
+        where sm.status = 0
+        order by sm.order_num ASC
+    </select>
+
+</mapper>

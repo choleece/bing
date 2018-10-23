@@ -1,14 +1,11 @@
 package cn.choleece.bing.admin.controller;
 
-import cn.choleece.bing.admin.service.IUserService;
+import cn.choleece.bing.admin.service.ISysUserService;
 import cn.choleece.bing.common.controller.BaseController;
-import cn.choleece.bing.common.util.R;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 登录相关
@@ -20,14 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 @CrossOrigin
 public class IndexController extends BaseController {
     @Autowired
-    private IUserService userService;
+    private ISysUserService userService;
 
     private static final Logger logger = LogManager.getLogger(IndexController.class);
 
     @PostMapping("/login")
-    public R login(String username, String password, HttpServletRequest request) throws Exception {
-
+    public String login(String username, String password) throws Exception {
         logger.info("---user login--- username: " + username + " password: " + password);
+
         return userService.login(username, password);
     }
 

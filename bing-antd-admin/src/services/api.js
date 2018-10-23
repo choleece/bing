@@ -103,7 +103,13 @@ export async function updateFakeList(params) {
   });
 }
 
-export async function fakeAccountLogin(params) {
+/**
+ * 用户登录
+ * @param params
+ * @returns {Promise.<Object>}
+ */
+export async function accountLogin(params) {
+  console.log(params);
   return request('/api/index/login', {
     method: 'POST',
     body: params,
@@ -121,6 +127,10 @@ export async function queryNotices() {
   return request('/api/notices');
 }
 
-export async function getFakeCaptcha(mobile) {
-  return request(`/api/captcha?mobile=${mobile}`);
+/**
+ * 获取图片验证码
+ * @returns {Promise.<Object>}
+ */
+export async function getCaptcha() {
+  return request('/api/captcha');
 }

@@ -2,10 +2,12 @@ package cn.choleece.bing.admin.service.impl;
 
 import cn.choleece.bing.admin.constant.ResponseMsg;
 import cn.choleece.bing.admin.entity.SysUser;
-import cn.choleece.bing.admin.mapper.UserMapper;
-import cn.choleece.bing.admin.service.IUserService;
+import cn.choleece.bing.admin.mapper.SysUserMapper;
+import cn.choleece.bing.admin.service.ISysUserService;
 import cn.choleece.bing.common.service.impl.BaseServiceImpl;
+import cn.choleece.bing.common.util.JwtUtil;
 import cn.choleece.bing.common.util.R;
+import cn.choleece.bing.common.vo.LoginUser;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -22,10 +24,10 @@ import org.springframework.stereotype.Service;
  * @date 2018/9/26
  */
 @Service
-public class UserServiceImpl extends BaseServiceImpl implements IUserService {
+public class SysUserServiceImpl extends BaseServiceImpl implements ISysUserService {
 
     @Autowired
-    private UserMapper<SysUser> userMapper;
+    private SysUserMapper<SysUser> userMapper;
 
     @Override
     public SysUser getUserByName(String username) {
@@ -33,7 +35,7 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     }
 
     @Override
-    public R login(String username, String pwd) {
+    public String login(String username, String pwd) {
         if (StringUtils.isBlank(username)) {
             return R.error(ResponseMsg.INCORRECT_PASSWORD);
         }
@@ -50,6 +52,10 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
             return R.error(e.getMessage());
         }
         // 执行token或者其他什么策略
-        return R.ok();
+        SysUser sysUser = (SysUser)SecurityUtils.getSubject().getPrincipal();
+        LoginUser loginUser = new LoginUser();
+        loginUser.setUid(sysUser.getUid());
+        loginUser.setUsername(sysUser.getUsername());
+        return R.ok(JwtUtil.sign(loginUser));
     }
 }

@@ -216,6 +216,7 @@ class BasicLayout extends React.PureComponent {
   }
 
   render() {
+    console.log(this.props);
     const {
       navTheme,
       layout: PropsLayout,

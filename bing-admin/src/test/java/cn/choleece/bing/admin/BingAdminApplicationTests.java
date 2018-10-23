@@ -1,7 +1,7 @@
 package cn.choleece.bing.admin;
 
 import cn.choleece.bing.admin.entity.SysUser;
-import cn.choleece.bing.admin.service.IUserService;
+import cn.choleece.bing.admin.service.ISysUserService;
 import cn.choleece.bing.common.util.PropertiesFileUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class BingAdminApplicationTests {
 	@Autowired
-	private IUserService userService;
+	private ISysUserService userService;
 
 	@Test
 	public void contextLoads() {

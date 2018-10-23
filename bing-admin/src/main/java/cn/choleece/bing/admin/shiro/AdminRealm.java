@@ -2,7 +2,7 @@ package cn.choleece.bing.admin.shiro;
 
 import cn.choleece.bing.admin.constant.ResponseMsg;
 import cn.choleece.bing.admin.entity.SysUser;
-import cn.choleece.bing.admin.service.IUserService;
+import cn.choleece.bing.admin.service.ISysUserService;
 import cn.choleece.bing.common.constant.CommonConstant;
 import cn.choleece.bing.common.entity.CurUser;
 import cn.choleece.bing.common.shiro.BingRealm;
@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class AdminRealm extends BingRealm {
     @Autowired
-    private IUserService userService;
+    private ISysUserService userService;
 
     /**
      * 用户锁定状态

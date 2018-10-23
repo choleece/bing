@@ -26,12 +26,12 @@ const checkStatus = response => {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
-  const errortext = codeMessage[response.status] || response.statusText;
+  const errorText = codeMessage[response.status] || response.statusText;
   notification.error({
     message: `请求错误 ${response.status}: ${response.url}`,
-    description: errortext,
+    description: errorText,
   });
-  const error = new Error(errortext);
+  const error = new Error(errorText);
   error.name = response.status;
   error.response = response;
   throw error;
@@ -54,6 +54,20 @@ const cachedSave = (response, hashcode) => {
       });
   }
   return response;
+};
+
+/**
+ * gen url query url?a=a&b=b
+ * @param params
+ * @returns {string}
+ */
+const genQuery = params => {
+  let str = '?';
+  const obj = JSON.parse(params);
+  Object.keys(obj).forEach(item => {
+    str += `${item}=${obj[item]}&`;
+  });
+  return str.substr(0, str.length - 1);
 };
 
 /**
@@ -119,7 +133,9 @@ export default function request(
       sessionStorage.removeItem(`${hashcode}:timestamp`);
     }
   }
-  return fetch(url, newOptions)
+  console.log(`${url}${genQuery(newOptions.body)}`);
+  console.log(newOptions);
+  return fetch(`${url}${genQuery(newOptions.body)}`, newOptions)
     .then(checkStatus)
     .then(response => cachedSave(response, hashcode))
     .then(response => {

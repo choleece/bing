@@ -1,14 +1,13 @@
 package cn.choleece.bing.admin.service;
 
 import cn.choleece.bing.admin.entity.SysUser;
-import cn.choleece.bing.common.util.R;
 
 /**
  *
  * @author choleece
  * @date 2018/9/26
  */
-public interface IUserService {
+public interface ISysUserService {
 
     /**
      * 通过用户名获取用户，在注册或创建用户时，用户名不能重复
@@ -25,5 +24,5 @@ public interface IUserService {
      * @return
      * @throws Exception
      */
-    R login(String username, String pwd);
+    String login(String username, String pwd);
 }

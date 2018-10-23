@@ -4,8 +4,11 @@ import com.google.code.kaptcha.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  * 登录公共类
@@ -13,13 +16,12 @@ import java.awt.image.BufferedImage;
  * @date 2018/9/30
  */
 @RestController
-@RequestMapping("/index")
-public abstract class IndexController extends BaseController {
+public class CommonController extends BaseController {
     @Autowired
     private Producer captchaProducer;
 
-    @GetMapping("/captcha.jpg")
-    public void getCaptcha(HttpServletResponse response) {
+    @GetMapping("/captcha")
+    public void getCaptcha(HttpServletResponse response) throws IOException {
         response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");
 
@@ -29,5 +31,7 @@ public abstract class IndexController extends BaseController {
         BufferedImage image = captchaProducer.createImage(text);
         // 保存在session里
 
+        ServletOutputStream outputStream = response.getOutputStream();
+        ImageIO.write(image, "jpg", outputStream);
     }
 }

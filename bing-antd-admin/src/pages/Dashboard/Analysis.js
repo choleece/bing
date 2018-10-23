@@ -14,6 +14,7 @@ import {
   Menu,
   Dropdown,
 } from 'antd';
+import numeral from 'numeral';
 import {
   ChartCard,
   MiniArea,
@@ -23,13 +24,12 @@ import {
   Bar,
   Pie,
   TimelineChart,
-} from '@/components/Charts';
-import Trend from '@/components/Trend';
-import NumberInfo from '@/components/NumberInfo';
-import numeral from 'numeral';
-import GridContent from '@/components/PageHeaderWrapper/GridContent';
-import Yuan from '@/utils/Yuan';
-import { getTimeDistance } from '@/utils/utils';
+} from '../../components/Charts';
+import Trend from '../../components/Trend';
+import NumberInfo from '../../components/NumberInfo';
+import GridContent from '../../components/PageHeaderWrapper/GridContent';
+import Yuan from '../../utils/Yuan';
+import { getTimeDistance } from '../../utils/utils';
 
 import styles from './Analysis.less';
 

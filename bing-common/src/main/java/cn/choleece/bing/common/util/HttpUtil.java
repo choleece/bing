@@ -1,8 +1,5 @@
 package cn.choleece.bing.common.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class HttpUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(HttpUtil.class);
+    private static final String TOKEN_NAME = "Authorized";
 
     /**
      * 根据参数名获取请求头里的数据
@@ -23,5 +20,14 @@ public class HttpUtil {
      */
     public static String getHttpHeaderValue(ServletRequest request, String headerName) {
         return ((HttpServletRequest) request).getHeader(headerName);
+    }
+
+    /**
+     * 获取当前登录用户的uid
+     * @param request
+     * @return
+     */
+    public static String getUid(HttpServletRequest request) {
+        return JwtUtil.getUid(getHttpHeaderValue(request, TOKEN_NAME));
     }
 }
