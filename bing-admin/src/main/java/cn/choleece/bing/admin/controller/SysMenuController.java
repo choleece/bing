@@ -36,4 +36,9 @@ public class SysMenuController extends BaseController {
 
         return R.ok(sysMenuService.listUserMenu(uid));
     }
+
+    @GetMapping("/test")
+    public String listTest() {
+        return R.ok();
+    }
 }

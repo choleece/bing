@@ -257,6 +257,17 @@ export default [
         ],
       },
       {
+        name: 'choleece',
+        icon: 'user',
+        path: '/choleece',
+        routes: [
+          {
+            path: '/choleece/choleece',
+            component: './Role/Roles',
+          },
+        ],
+      },
+      {
         component: '404',
       },
     ],
