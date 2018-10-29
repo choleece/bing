@@ -1,5 +1,3 @@
-import Vue from 'Vue';
-
 /**
  * 是否有权限
  * @param {*} key
@@ -41,5 +39,18 @@ export function treeDataTranslate (data, id = 'id', pid = 'parentId') {
  * 清除登录信息
  */
 export function clearLoginInfo () {
-
+    local_data.clear();
 };
+
+/**
+ * 本地存储操作方法
+ * @type {{set: (function(*=, *=)), get: (function(*=))}}
+ */
+const local_data = {
+    set: (name, val) => localStorage.setItem(name, val),
+    get: name => localStorage.getItem(name),
+    clear: () => localStorage.clear(),
+    remove: name => localStorage.removeItem(name)
+};
+
+export { local_data };
