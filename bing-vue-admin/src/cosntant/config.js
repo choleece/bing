@@ -1,0 +1,7 @@
+/**
+ * 系统基本配置
+ */
+
+export default {
+    base_url: 'http://localhost:8080/'
+};
