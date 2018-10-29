@@ -8,6 +8,7 @@ import cn.choleece.bing.common.util.R;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author choleece
  * @date 2018/10/21
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/sys/menu")
 public class SysMenuController extends BaseController {

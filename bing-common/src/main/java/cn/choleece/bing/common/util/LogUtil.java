@@ -33,4 +33,15 @@ public class LogUtil {
         logger.debug(debug);
     }
 
+    /**
+     * error 级别日志
+     * @param logger
+     * @param apiDes
+     * @param detail
+     */
+    public static void error(Logger logger, String apiDes, String detail) {
+        String error = LOG_PREFIX + apiDes + LOG_PREFIX + detail;
+        logger.error(error);
+    }
+
 }
