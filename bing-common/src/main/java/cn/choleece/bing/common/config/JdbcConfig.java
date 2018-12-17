@@ -6,6 +6,7 @@ import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -23,11 +24,12 @@ import java.util.Map;
  * @date 2018/9/16
  */
 @Configuration
+@MapperScan("cn.choleece.*.mapper")
 public class JdbcConfig {
 
     private static final String DB_CONFIG_NAME = "db";
 
-    private static final String MAPPER_LOCAL = "classpath:mapper/*/*.xml";
+    private static final String MAPPER_LOCAL = "classpath*:mapper/*/*.xml";
 
     @Bean("dataSource")
     public DruidDataSource dataSource() {
