@@ -22,18 +22,4 @@ public interface SysMenuMapper {
      * @return
      */
     List<SysMenu> listUserMenu(String uid);
-
-    /**
-     * 统计满足条件的menu的总数
-     * @param query
-     * @return
-     */
-    int countMenus(Query query);
-
-    /**
-     * 获取满足条件的menu列表
-     * @param query
-     * @return
-     */
-    List<SysMenu> listMenu(Query query);
 }

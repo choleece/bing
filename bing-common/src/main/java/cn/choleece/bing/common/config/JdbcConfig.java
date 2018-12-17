@@ -24,7 +24,7 @@ import java.util.Map;
  * @date 2018/9/16
  */
 @Configuration
-@MapperScan("cn.choleece.*.mapper")
+@MapperScan("cn.choleece.*.*.mapper")
 public class JdbcConfig {
 
     private static final String DB_CONFIG_NAME = "db";
