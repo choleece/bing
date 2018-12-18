@@ -7,7 +7,7 @@ package cn.choleece.bing.admin.entity;
  */
 public class SysUser {
 
-    private String uid;
+    private String userId;
 
     private String username;
 
@@ -21,12 +21,12 @@ public class SysUser {
 
     private String createTime;
 
-    public String getUid() {
-        return uid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -80,7 +80,7 @@ public class SysUser {
     @Override
     public String toString() {
         return "SysUser{" +
-                "uid='" + uid + '\'' +
+                "userId='" + userId + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", mobile='" + mobile + '\'' +

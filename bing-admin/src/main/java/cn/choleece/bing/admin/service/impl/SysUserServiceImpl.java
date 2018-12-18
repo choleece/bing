@@ -54,7 +54,7 @@ public class SysUserServiceImpl extends BaseServiceImpl implements ISysUserServi
         // 执行token或者其他什么策略
         SysUser sysUser = (SysUser)SecurityUtils.getSubject().getPrincipal();
         LoginUser loginUser = new LoginUser();
-        loginUser.setUid(sysUser.getUid());
+        loginUser.setUid(sysUser.getUserId());
         loginUser.setUsername(sysUser.getUsername());
         return R.ok(JwtUtil.sign(loginUser));
     }

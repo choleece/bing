@@ -4,8 +4,14 @@ import cn.choleece.bing.common.util.PropertiesFileUtil;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import com.baomidou.mybatisplus.core.MybatisConfiguration;
+import com.baomidou.mybatisplus.core.MybatisXMLLanguageDriver;
+import com.baomidou.mybatisplus.extension.MybatisMapWrapperFactory;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
+import org.apache.ibatis.type.JdbcType;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -17,6 +23,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * 数据库相关配置
@@ -30,6 +37,31 @@ public class JdbcConfig {
     private static final String DB_CONFIG_NAME = "db";
 
     private static final String MAPPER_LOCAL = "classpath*:mapper/*/*.xml";
+
+    /**
+     * 分页插件
+     */
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        return new PaginationInterceptor();
+    }
+
+    /**
+     * mybatis 分页插件
+     * @return
+     */
+    @Bean
+    public PageHelper pageHelper() {
+        PageHelper pageHelper = new PageHelper();
+        Properties p = new Properties();
+        p.setProperty("offsetAsPageNum", "true");
+        p.setProperty("rowBoundsWithCount", "true");
+        p.setProperty("reasonable", "true");
+        p.setProperty("pageSizeZero", "true");
+        p.setProperty("dialect","mysql");
+        pageHelper.setProperties(p);
+        return pageHelper;
+    }
 
     @Bean("dataSource")
     public DruidDataSource dataSource() {
@@ -60,13 +92,17 @@ public class JdbcConfig {
     }
 
     private SqlSessionFactory createSqlSessionFactory(DataSource dataSource, String xmlMapperLocations) throws Exception {
-        SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
-        sessionFactoryBean.setDataSource(dataSource);
+        MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
+        MybatisConfiguration configuration = new MybatisConfiguration();
+        configuration.setDefaultScriptingLanguage(MybatisXMLLanguageDriver.class);
+        configuration.setJdbcTypeForNull(JdbcType.NULL);
+        //*注册Map 下划线转驼峰*
+        configuration.setObjectWrapperFactory(new MybatisMapWrapperFactory());
 
-        // mybatis分页
-
-        sessionFactoryBean.setMapperLocations((new PathMatchingResourcePatternResolver()).getResources(xmlMapperLocations));
-        return sessionFactoryBean.getObject();
+        sqlSessionFactory.setConfiguration(configuration);
+        sqlSessionFactory.setMapperLocations((new PathMatchingResourcePatternResolver()).getResources(xmlMapperLocations));
+        sqlSessionFactory.setDataSource(dataSource);
+        return sqlSessionFactory.getObject();
     }
 
     @Bean
@@ -88,15 +124,6 @@ public class JdbcConfig {
 
         servletRegistrationBean.setInitParameters(initParameters);
         return servletRegistrationBean;
-    }
-
-    @Bean
-    public FilterRegistrationBean filterRegistrationBean() {
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
-        filterRegistrationBean.setFilter(new WebStatFilter());
-        filterRegistrationBean.addUrlPatterns("/*");
-        filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.ico,/druid/*");
-        return filterRegistrationBean;
     }
 
 }

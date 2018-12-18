@@ -65,7 +65,7 @@ public class AdminRealm extends BingRealm {
         Session session = subject.getSession(true);
 
         // 将登录用户信息放到session里，current user 可以根据需要，存放不同的信息
-        session.setAttribute(CommonConstant.CURRENT_USER, new CurUser.CurUserBuilder().uid(user.getUid()).build());
+        session.setAttribute(CommonConstant.CURRENT_USER, new CurUser.CurUserBuilder().uid(user.getUserId()).build());
 
         // 在此位置，也可以将有必要的信息放到ehcache或者redis等缓存里
 

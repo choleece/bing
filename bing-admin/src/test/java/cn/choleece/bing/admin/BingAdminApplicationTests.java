@@ -4,6 +4,7 @@ import cn.choleece.bing.admin.entity.SysUser;
 import cn.choleece.bing.admin.mapper.SysUserMapper;
 import cn.choleece.bing.admin.service.ISysUserService;
 import cn.choleece.bing.common.util.PropertiesFileUtil;
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,7 @@ public class BingAdminApplicationTests {
 	public void testMybatisPlus() {
 		System.out.println(("----- selectAll method test ------"));
 		List<SysUser> userList = userMapper.selectList(null);
+		System.out.println(JSONObject.toJSONString(userList));
 		userList.forEach(System.out::println);
 	}
 
