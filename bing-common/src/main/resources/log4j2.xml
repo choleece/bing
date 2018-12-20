@@ -6,7 +6,7 @@
     <!--定义常量，已便在下边进行引用-->
     <Properties>
         <Property name="app_name">bing</Property>
-        <Property name="log_path">D:/logs/app/applogs</Property>
+        <Property name="log_path">log/app/applogs</Property>
     </Properties>
 
     <!--先定义所有的appender-->
