@@ -4,21 +4,39 @@
     <diskStore path="java.io.tmpdir"/>
 
     <defaultCache
-        maxElementsInMemory="10000"
-        eternal="false"
-        timeToIdleSeconds="120"
-        timeToLiveSeconds="120"
-        overflowToDisk="false"
-        diskPersistent="false"
-        diskExpiryThreadIntervalSeconds="120"
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            overflowToDisk="false"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120"
     />
 
-    <!--登录记录锁定一小时-->
-    <cache name="pwdRetryCache"
-           maxEntriesLocalHeap="2000"
+    <!--权限缓存1小时，和session过期时间一致-->
+    <cache name="sysPermissionCache"
+           maxEntriesLocalHeap="50000"
            eternal="false"
-           timeToIdleSeconds="3600"
-           timeToLiveSeconds="0"
+           timeToIdleSeconds="3600000"
+           timeToLiveSeconds="3600000"
+           overflowToDisk="false"
+           statistics="true"
+    />
+
+    <!--权限缓存1小时，和session过期时间一致-->
+    <cache name="currentSender"
+           maxEntriesLocalHeap="50000"
+           eternal="false"
+           timeToIdleSeconds="3600000"
+           timeToLiveSeconds="3600000"
+           overflowToDisk="false"
+           statistics="true"
+    />
+
+    <!--用户角色-->
+    <cache name="userRoleCache"
+           maxEntriesLocalHeap="2000"
+           eternal="true"
            overflowToDisk="false"
            statistics="true"
     />

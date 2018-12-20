@@ -10,5 +10,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @Mapper
-public interface CommonMapper<T> {
+public interface BaseMapper<T> {
+
+    /**
+     * 通过主键获取记录
+     * @param pkId
+     * @return
+     */
+    T getOneByPkId(String pkId);
 }

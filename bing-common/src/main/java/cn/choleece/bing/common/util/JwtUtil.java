@@ -5,7 +5,10 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Date;
 
@@ -16,10 +19,12 @@ import java.util.Date;
  */
 public class JwtUtil {
 
+    private static final Logger logger = LogManager.getLogger(JwtUtil.class);
+
     /**
-     * token 过期时间 5min
+     * token 过期时间 12h
      */
-    private static final long EXPIRE_TIME = 5 * 60 * 1000;
+    private static final long EXPIRE_TIME = 12 * 60 * 60 * 1000;
 
     /**
      * jwt 签名凭证
@@ -29,26 +34,26 @@ public class JwtUtil {
     /**
      * jwt payload 为username key
      */
-    private static final String JWT_USER_NAME_KEY = "username";
+    public static final String JWT_USER_NAME_KEY = "username";
 
     /**
      * jwt payload为user key
      */
-    private static final String JWT_USER_KEY = "user";
+    public static final String JWT_USER_KEY = "user";
 
     /**
      * 检查token
      * @param token token
-     * @param username 用户名
      * @return
      */
-    public static boolean verify(String token, String username) {
+    public static boolean verify(String token, String keyName) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(JWT_SING_KEY);
-            JWTVerifier verifier = JWT.require(algorithm).withClaim("username", username).build();
+            JWTVerifier verifier = JWT.require(algorithm).withClaim(keyName, getJwtPayload(token, keyName)).build();
             verifier.verify(token);
             return true;
-        } catch (Exception e) {
+        } catch (JWTVerificationException e) {
+            LogUtil.error(logger, "verify token exception", e.getMessage());
             return false;
         }
     }
@@ -83,12 +88,7 @@ public class JwtUtil {
      * @return
      */
     public static String getUsername(String token) {
-        try {
-            DecodedJWT jwt = JWT.decode(token);
-            return jwt.getClaim(JWT_USER_NAME_KEY).asString();
-        } catch (JWTDecodeException e) {
-            return null;
-        }
+        return getJwtPayload(token, JWT_USER_NAME_KEY);
     }
 
     /**
@@ -97,10 +97,22 @@ public class JwtUtil {
      * @return
      */
     public static LoginUser getLoginUser(String token) {
+        String str = getJwtPayload(token, JWT_USER_KEY);
+        if (str != null) {
+            return GsonUtil.stringToObj(str, LoginUser.class);
+        }
+        return null;
+    }
+
+    /**
+     * 获取负载信息
+     * @param token
+     * @param keyName
+     * @return
+     */
+    public static String getJwtPayload(String token, String keyName) {
         try {
-            DecodedJWT jwt = JWT.decode(token);
-            String jwtStr = jwt.getClaim(JWT_USER_KEY).asString();
-            return GsonUtil.stringToObj(jwtStr, LoginUser.class);
+            return JWT.decode(token).getClaim(keyName).asString();
         } catch (JWTDecodeException e) {
             return null;
         }
@@ -131,6 +143,14 @@ public class JwtUtil {
 
         System.out.println("username jwt: " + usernameJwt);
         System.out.println("user jwt: " + userJwt);
+
+        String jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDI1MTc2MDcsInVzZXIiOiJ7XCJ1aWRcIjpcIjFcIixcInVzZXJuYW1lXCI6XCJjaG9sZWVjZVwifSJ9.KBEy76Oj1vgzLOxPLhIAi0B15WI3neDYQwVKMWuGgsw";
+
+        LoginUser user1 = new LoginUser();
+        user1.setUid("2");
+        user.setUsername("choleece");
+
+        System.out.println(verify(jwt, JWT_USER_KEY));
 
         System.out.println("get username from token: " + getUsername(usernameJwt));
         System.out.println("get user from token: " + getLoginUser(userJwt));

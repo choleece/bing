@@ -1,7 +1,6 @@
 package cn.choleece.bing.admin.controller;
 
 import cn.choleece.bing.admin.service.ISysUserService;
-import cn.choleece.bing.common.controller.BaseController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/index")
 @CrossOrigin
-public class IndexController extends BaseController {
+public class IndexController {
     @Autowired
     private ISysUserService userService;
 

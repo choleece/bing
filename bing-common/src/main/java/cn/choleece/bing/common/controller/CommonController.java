@@ -1,14 +1,14 @@
 package cn.choleece.bing.common.controller;
 
+import cn.choleece.card.common.constant.CommonConstant;
 import com.google.code.kaptcha.Producer;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -18,16 +18,13 @@ import java.io.IOException;
  * @author choleece
  * @date 2018/9/30
  */
-@Api(value="/", tags="冰公共接口")
 @RestController
-@RequestMapping("/")
 public class CommonController extends BaseController {
     @Autowired
     private Producer captchaProducer;
 
-    @ApiOperation(value="获取图片验证码", notes = "获取图片验证码")
-    @GetMapping("captcha")
-    public void getCaptcha(HttpServletResponse response) throws IOException {
+    @GetMapping("/captcha")
+    public void getCaptcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");
 
@@ -36,7 +33,8 @@ public class CommonController extends BaseController {
         // 生成验证码图片
         BufferedImage image = captchaProducer.createImage(text);
         // 保存在session里
-
+        request.getSession().removeAttribute(CommonConstant.KEY_CAPTCHA);
+        request.getSession().setAttribute(CommonConstant.KEY_CAPTCHA, text);
         ServletOutputStream outputStream = response.getOutputStream();
         ImageIO.write(image, "jpg", outputStream);
     }

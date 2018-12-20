@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class HttpUtil {
 
-    private static final String TOKEN_NAME = "Authorized";
+    public static final String TOKEN_NAME = "t";
 
     /**
      * 根据参数名获取请求头里的数据

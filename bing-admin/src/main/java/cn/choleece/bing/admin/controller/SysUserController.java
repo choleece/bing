@@ -2,7 +2,6 @@ package cn.choleece.bing.admin.controller;
 
 import cn.choleece.bing.admin.service.ISysMenuService;
 import cn.choleece.bing.common.constant.CommonConstant;
-import cn.choleece.bing.common.controller.BaseController;
 import cn.choleece.bing.common.util.HttpUtil;
 import cn.choleece.bing.common.util.LogUtil;
 import cn.choleece.bing.common.util.R;
@@ -23,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/sys/user")
-public class SysUserController extends BaseController {
+public class SysUserController {
     @Autowired
     private ISysMenuService sysMenuService;
 

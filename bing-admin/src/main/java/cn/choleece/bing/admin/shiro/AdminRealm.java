@@ -1,19 +1,29 @@
 package cn.choleece.bing.admin.shiro;
 
+import cn.choleece.bing.admin.constant.AdminConstant;
 import cn.choleece.bing.admin.constant.ResponseMsg;
 import cn.choleece.bing.admin.entity.SysUser;
 import cn.choleece.bing.admin.service.ISysUserService;
+import cn.choleece.bing.common.cache.J2CacheUtil;
 import cn.choleece.bing.common.constant.CommonConstant;
-import cn.choleece.bing.common.entity.CurUser;
+import cn.choleece.bing.common.mapper.BaseRoleMapper;
 import cn.choleece.bing.common.shiro.BingRealm;
 import cn.choleece.bing.common.util.PwdUtil;
+import cn.choleece.bing.common.vo.LoginUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 根据自己的情况实现realm的鉴权方式，需要继承BingRealm
@@ -23,10 +33,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class AdminRealm extends BingRealm {
     @Autowired
     private ISysUserService userService;
+    @Autowired
+    private BaseRoleMapper baseRoleMapper;
+    @Autowired
+    private J2CacheUtil j2CacheUtil;
 
-    /**
-     * 用户锁定状态
-     */
     private static final String INACTIVE_USER_STATUS = "0";
 
     @Override
@@ -36,7 +47,22 @@ public class AdminRealm extends BingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return super.doGetAuthorizationInfo(principalCollection);
+        LoginUser user = (LoginUser) principalCollection.getPrimaryPrincipal();
+
+        List<String> perms = (List<String>) j2CacheUtil.get(J2CacheUtil.SYS_PERM_CACHE_NAME, AdminConstant.PERMS_LIST + "-" + user.getUid());
+        Set<String> setPerms = new HashSet<>();
+        if (perms != null && perms.size() != 0) {
+            for (String perm : perms) {
+                if (StringUtils.isEmpty(perm)) {
+                    continue;
+                }
+                setPerms.addAll(Arrays.asList(perm.trim().split(",")));
+            }
+        }
+
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        info.setStringPermissions(setPerms);
+        return info;
     }
 
     @Override
@@ -50,8 +76,8 @@ public class AdminRealm extends BingRealm {
             throw new UnknownAccountException(ResponseMsg.INCORRECT_PASSWORD);
         }
 
-        if (!PwdUtil.genPwd(pwd).equals(user.getPassword())) {
-//            throw new IncorrectCredentialsException(ResponseMsg.INCORRECT_PASSWORD);
+        if (!PwdUtil.genPwd(pwd, user.getSalt()).equals(user.getPassword())) {
+            throw new IncorrectCredentialsException(ResponseMsg.INCORRECT_PASSWORD);
         }
 
         if (INACTIVE_USER_STATUS.equals(user.getStatus())) {
@@ -65,10 +91,16 @@ public class AdminRealm extends BingRealm {
         Session session = subject.getSession(true);
 
         // 将登录用户信息放到session里，current user 可以根据需要，存放不同的信息
-        session.setAttribute(CommonConstant.CURRENT_USER, new CurUser.CurUserBuilder().uid(user.getUserId()).build());
+        session.setAttribute(CommonConstant.CURRENT_USER, new LoginUser.LoginUserBuilder().uid(user.getUserId()).build());
 
-        // 在此位置，也可以将有必要的信息放到ehcache或者redis等缓存里
+        // 将用户权限放入缓存
+        List<String> perms = baseRoleMapper.listRolePermissions(user.getUserId());
+        j2CacheUtil.put(J2CacheUtil.SYS_PERM_CACHE_NAME, AdminConstant.PERMS_LIST + "-" + user.getUserId(), perms);
 
-        return new SimpleAuthenticationInfo(user, authenticationToken.getCredentials(), "realm");
+        LoginUser loginUser = new LoginUser();
+        loginUser.setUid(user.getUserId());
+        loginUser.setUsername(user.getUsername());
+        loginUser.setRoleId(user.getRoleId());
+        return new SimpleAuthenticationInfo(loginUser, authenticationToken.getCredentials(), "realm");
     }
 }
