@@ -1,7 +1,7 @@
 package cn.choleece.bing.common.controller;
 
-import cn.choleece.card.common.util.ShiroUtil;
-import cn.choleece.card.common.vo.LoginUser;
+import cn.choleece.bing.common.util.ShiroUtil;
+import cn.choleece.bing.common.vo.LoginUser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

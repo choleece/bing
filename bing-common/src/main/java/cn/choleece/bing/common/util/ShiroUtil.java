@@ -1,6 +1,6 @@
 package cn.choleece.bing.common.util;
 
-import cn.choleece.bing.common.entity.CurUser;
+import cn.choleece.bing.common.vo.LoginUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -20,16 +20,16 @@ public class ShiroUtil {
         return getSubject().getSession();
     }
 
-    public static CurUser getUserEntity() {
-        return (CurUser) getSubject().getPrincipal();
+    public static LoginUser getUserEntity() {
+        return (LoginUser) getSubject().getPrincipal();
     }
 
     public static String getUid() {
-        return ((CurUser) getSubject()).getUid();
+        return getUserEntity().getUid();
     }
 
     public static String getToken() {
-        return ((CurUser) getSubject()).getToken();
+        return getUserEntity().getToken();
     }
 
     public static void setSessionAttritube(String key, Object value) {

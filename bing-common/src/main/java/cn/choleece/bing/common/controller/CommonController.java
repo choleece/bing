@@ -1,6 +1,6 @@
 package cn.choleece.bing.common.controller;
 
-import cn.choleece.card.common.constant.CommonConstant;
+import cn.choleece.bing.common.constant.CommonConstant;
 import com.google.code.kaptcha.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

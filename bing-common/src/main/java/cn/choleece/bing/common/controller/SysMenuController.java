@@ -1,9 +1,9 @@
 package cn.choleece.bing.common.controller;
 
-import cn.choleece.card.common.service.ISysMenuService;
-import cn.choleece.card.common.util.HttpUtil;
-import cn.choleece.card.common.util.LogUtil;
-import cn.choleece.card.common.util.R;
+import cn.choleece.bing.common.service.ISysMenuService;
+import cn.choleece.bing.common.util.HttpUtil;
+import cn.choleece.bing.common.util.LogUtil;
+import cn.choleece.bing.common.util.R;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
