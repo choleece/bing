@@ -3,7 +3,7 @@
 
 <mapper namespace="cn.choleece.bing.common.mapper.SysRoleMapper">
 
-    <resultMap id="sysRole" type="cn.choleece.card.common.entity.SysRole">
+    <resultMap id="sysRole" type="cn.choleece.bing.common.entity.SysRole">
         <id property="roleId" column="role_id"/>
         <result property="roleName" column="role_name"/>
         <result property="createTime" column="create_time"/>

@@ -2,11 +2,13 @@ package cn.choleece.bing.common.cache;
 
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * 缓存工具
  * @author sf
  */
+@Component
 public class J2CacheUtil {
     @Autowired
     private EhCacheManager cacheManager;

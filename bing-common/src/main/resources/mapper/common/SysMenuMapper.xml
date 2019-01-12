@@ -3,7 +3,7 @@
 
 <mapper namespace="cn.choleece.bing.common.mapper.SysMenuMapper">
 
-    <resultMap id="sysMenu" type="cn.choleece.card.common.entity.SysMenu">
+    <resultMap id="sysMenu" type="cn.choleece.bing.common.entity.SysMenu">
         <id property="menuId" column="menu_id"/>
         <result property="parentId" column="parent_id"/>
         <result property="name" column="name"/>

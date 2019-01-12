@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 统一异常处理
- * @Author choleece
+ * @author choleece
  * @Date 2018/9/21 11:31
  */
 @RestControllerAdvice
