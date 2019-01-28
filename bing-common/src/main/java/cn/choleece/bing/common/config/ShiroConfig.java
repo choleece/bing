@@ -76,14 +76,15 @@ public class ShiroConfig {
         factoryBean.setSecurityManager(securityManager);
 
         // 设置未授权的url
-        factoryBean.setUnauthorizedUrl("");
+        factoryBean.setUnauthorizedUrl("/index/401");
 
         // 自定义拦截规则
-        Map<String, String> filterRoleMap = new HashMap<>(2);
-        filterRoleMap.put("/**", "jwt");
-        filterRoleMap.put("/401", "anon");
+        Map<String, String> shiroFilterMap = new HashMap<>(2);
+        shiroFilterMap.put("/index/login", "anon");
+        shiroFilterMap.put("/401", "anon");
+        shiroFilterMap.put("/**", "jwt");
 
-        factoryBean.setFilterChainDefinitionMap(filterRoleMap);
+        factoryBean.setFilterChainDefinitionMap(shiroFilterMap);
         return factoryBean;
     }
 
@@ -91,7 +92,6 @@ public class ShiroConfig {
     @DependsOn("lifecycleBeanPostProcessor")
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
         DefaultAdvisorAutoProxyCreator creator = new DefaultAdvisorAutoProxyCreator();
-
         creator.setProxyTargetClass(true);
         return creator;
     }

@@ -1,6 +1,7 @@
 package cn.choleece.bing.admin.controller;
 
 import cn.choleece.bing.admin.service.ISysUserService;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/index")
-@CrossOrigin
 public class IndexController {
     @Autowired
     private ISysUserService userService;
@@ -21,9 +21,11 @@ public class IndexController {
     private static final Logger logger = LogManager.getLogger(IndexController.class);
 
     @PostMapping("/login")
-    public String login(String username, String password) throws Exception {
-        logger.info("---user login--- username: " + username + " password: " + password);
+    public String login(@RequestBody JSONObject json) throws Exception {
+        logger.info("---user login--- " + json.toString());
 
+        String username = json.getString("username");
+        String password = json.getString("password");
         return userService.login(username, password);
     }
 

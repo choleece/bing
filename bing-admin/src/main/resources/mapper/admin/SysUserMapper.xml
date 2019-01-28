@@ -4,7 +4,7 @@
 <mapper namespace="cn.choleece.bing.admin.mapper.SysUserMapper">
 
     <resultMap id="sysUser" type="cn.choleece.bing.admin.entity.SysUser">
-        <id property="uid" column="user_id"/>
+        <id property="userId" column="user_id"/>
         <result property="username" column="username"/>
         <result property="password" column="password"/>
         <result property="email" column="email"/>

@@ -21,9 +21,9 @@ public class GlobalExceptionHandler {
     private final Logger logger = LogManager.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(value = Exception.class)
-    public String defaultRestException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-
-        LogUtil.error(logger, "global exception handler", "");
+    public String defaultRestException(Exception ex) {
+        ex.printStackTrace();
+        LogUtil.error(logger, "global exception handler", ex.getMessage());
 
         return R.error();
     }
