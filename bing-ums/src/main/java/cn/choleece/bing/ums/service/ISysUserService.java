@@ -1,13 +1,14 @@
-package cn.choleece.bing.admin.service;
+package cn.choleece.bing.ums.service;
 
-import cn.choleece.bing.admin.entity.SysUser;
+import cn.choleece.bing.ums.entity.SysUser;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  *
  * @author choleece
  * @date 2018/9/26
  */
-public interface ISysUserService {
+public interface ISysUserService extends IService<SysUser> {
 
     /**
      * 通过用户名获取用户，在注册或创建用户时，用户名不能重复

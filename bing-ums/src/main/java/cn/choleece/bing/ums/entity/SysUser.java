@@ -1,4 +1,4 @@
-package cn.choleece.bing.admin.entity;
+package cn.choleece.bing.ums.entity;
 
 /**
  * 系统后台用户

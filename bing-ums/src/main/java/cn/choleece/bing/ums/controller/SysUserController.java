@@ -1,4 +1,4 @@
-package cn.choleece.bing.admin.controller;
+package cn.choleece.bing.ums.controller;
 
 import cn.choleece.bing.common.constant.CommonConstant;
 import cn.choleece.bing.common.util.R;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/sys/user")
-public class SysUserController {
+public class SysUserController extends BaseController{
 
     private static final Logger logger = LogManager.getLogger(SysUserController.class);
 

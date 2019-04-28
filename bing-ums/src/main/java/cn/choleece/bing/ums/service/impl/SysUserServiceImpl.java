@@ -1,13 +1,13 @@
-package cn.choleece.bing.admin.service.impl;
+package cn.choleece.bing.ums.service.impl;
 
-import cn.choleece.bing.admin.constant.ResponseMsg;
-import cn.choleece.bing.admin.entity.SysUser;
-import cn.choleece.bing.admin.mapper.SysUserMapper;
-import cn.choleece.bing.admin.service.ISysUserService;
-import cn.choleece.bing.common.service.impl.BaseServiceImpl;
 import cn.choleece.bing.common.util.JwtUtil;
 import cn.choleece.bing.common.util.R;
 import cn.choleece.bing.common.vo.LoginUser;
+import cn.choleece.bing.ums.constant.ResponseMsg;
+import cn.choleece.bing.ums.entity.SysUser;
+import cn.choleece.bing.ums.mapper.SysUserMapper;
+import cn.choleece.bing.ums.service.ISysUserService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
  * @date 2018/9/26
  */
 @Service
-public class SysUserServiceImpl extends BaseServiceImpl implements ISysUserService {
+public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
 
     @Autowired
     private SysUserMapper userMapper;

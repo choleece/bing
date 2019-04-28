@@ -2,11 +2,11 @@ package cn.choleece.bing.admin.shiro;
 
 import cn.choleece.bing.admin.constant.AdminConstant;
 import cn.choleece.bing.admin.constant.ResponseMsg;
-import cn.choleece.bing.admin.entity.SysUser;
-import cn.choleece.bing.admin.service.ISysUserService;
+import cn.choleece.bing.ums.entity.SysUser;
+import cn.choleece.bing.ums.service.ISysUserService;
 import cn.choleece.bing.common.cache.J2CacheUtil;
 import cn.choleece.bing.common.constant.CommonConstant;
-import cn.choleece.bing.common.mapper.BaseRoleMapper;
+import cn.choleece.bing.ums.mapper.BaseRoleMapper;
 import cn.choleece.bing.common.shiro.BingRealm;
 import cn.choleece.bing.common.util.PwdUtil;
 import cn.choleece.bing.common.vo.LoginUser;

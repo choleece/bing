@@ -1,12 +1,8 @@
-package cn.choleece.bing.admin.mapper;
+package cn.choleece.bing.ums.mapper;
 
-import cn.choleece.bing.admin.entity.SysUser;
-import cn.choleece.bing.common.util.Query;
+import cn.choleece.bing.ums.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  *
@@ -14,7 +10,6 @@ import java.util.List;
  * @date 2018/9/26
  */
 @Repository
-@Mapper
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
     /**
