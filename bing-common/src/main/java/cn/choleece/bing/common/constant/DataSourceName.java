@@ -8,7 +8,7 @@ public interface DataSourceName {
     /**
      * 主数据库
      */
-    String LEADER = "leader";
+    String DEFAULT = "default";
 
     /**
      * 从数据库
