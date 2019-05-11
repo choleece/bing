@@ -105,22 +105,20 @@ public class CodeGeneratorApplication {
 
 		// 获取要生成的表，用","隔开
 		String tables = PropertiesFileUtil.getInstance().get("tables");
-		Arrays.asList((tables.split(","))).forEach(table -> {
-			// 策略配置
-			StrategyConfig strategy = new StrategyConfig();
-			strategy.setNaming(NamingStrategy.underline_to_camel);
-			strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-			strategy.setSuperEntityClass(PropertiesFileUtil.getInstance().get("super.entity.class"));
-			strategy.setEntityLombokModel(true);
-			strategy.setRestControllerStyle(true);
-			strategy.setSuperControllerClass(PropertiesFileUtil.getInstance().get("super.controller.class"));
-			strategy.setInclude(table);
-			strategy.setSuperEntityColumns("id");
-			strategy.setControllerMappingHyphenStyle(true);
-			strategy.setTablePrefix(pc.getModuleName() + "_");
-			mpg.setStrategy(strategy);
-			mpg.execute();
-		});
+		// 策略配置
+		StrategyConfig strategy = new StrategyConfig();
+		strategy.setNaming(NamingStrategy.underline_to_camel);
+		strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+		strategy.setSuperEntityClass(PropertiesFileUtil.getInstance().get("super.entity.class"));
+		strategy.setEntityLombokModel(true);
+		strategy.setRestControllerStyle(true);
+		strategy.setSuperControllerClass(PropertiesFileUtil.getInstance().get("super.controller.class"));
+		strategy.setInclude(tables.split(","));
+		strategy.setSuperEntityColumns("id");
+		strategy.setControllerMappingHyphenStyle(true);
+		strategy.setTablePrefix(pc.getModuleName() + "_");
+		mpg.setStrategy(strategy);
+		mpg.execute();
 	}
 }
 
