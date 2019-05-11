@@ -37,4 +37,8 @@ public class PwdUtil {
     public static String genPwd(String pwd) {
         return new Md5Hash(pwd).toString();
     }
+
+    public static void main(String[] args) {
+        System.out.println(genPwd("123456", "123456"));
+    }
 }

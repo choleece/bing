@@ -3,20 +3,11 @@
 
 <mapper namespace="cn.choleece.bing.ums.mapper.SysUserMapper">
 
-    <resultMap id="sysUser" type="cn.choleece.bing.ums.entity.SysUser">
-        <id property="userId" column="user_id"/>
-        <result property="username" column="username"/>
-        <result property="password" column="password"/>
-        <result property="email" column="email"/>
-        <result property="mobile" column="mobile"/>
-        <result property="status" column="status"/>
-        <result property="createTime" column="create_time"/>
-    </resultMap>
-
-    <select id="getUserByUsername" resultMap="sysUser">
-        SELECT user_id, username, password, status
-        FROM sys_user
-        WHERE username = #{usernmae}
+    <select id="getUserByUsername" resultType="cn.choleece.bing.ums.entity.SysUser">
+        SELECT su.id, su.username, su.password, su.status, su.salt, sur.role_id
+        FROM sys_user su
+        INNER JOIN sys_user_role sur on sur.user_id = su.id
+        WHERE su.username = #{usernmae}
     </select>
 
 </mapper>

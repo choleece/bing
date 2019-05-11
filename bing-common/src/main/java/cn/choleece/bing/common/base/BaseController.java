@@ -1,4 +1,4 @@
-package cn.choleece.bing.common.controller;
+package cn.choleece.bing.common.base;
 
 import cn.choleece.bing.common.util.ShiroUtil;
 import cn.choleece.bing.common.vo.LoginUser;

@@ -52,10 +52,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             return R.error(e.getMessage());
         }
         // 执行token或者其他什么策略
-        SysUser sysUser = (SysUser)SecurityUtils.getSubject().getPrincipal();
-        LoginUser loginUser = new LoginUser();
-        loginUser.setUid(sysUser.getUserId());
-        loginUser.setUsername(sysUser.getUsername());
+        LoginUser loginUser = (LoginUser)SecurityUtils.getSubject().getPrincipal();
         return R.ok(JwtUtil.sign(loginUser));
     }
 }

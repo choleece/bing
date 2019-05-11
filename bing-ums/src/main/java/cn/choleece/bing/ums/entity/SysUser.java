@@ -1,24 +1,23 @@
 package cn.choleece.bing.ums.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
+import cn.choleece.bing.common.base.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableField;
 
 /**
  * 系统后台用户
  * @author choleece
  * @date 2018/9/26
  */
-public class SysUser {
-
-    @TableId
-    private String userId;
+public class SysUser extends BaseEntity {
 
     private String username;
 
     /**
-     * 用户真实姓名
+     * 用户昵称
      */
-    private String name;
+    private String nickName;
 
+    @TableField(exist = false)
     private String roleId;
 
     private String roleName;
@@ -31,24 +30,9 @@ public class SysUser {
 
     private String email;
 
-    private String jobNumber;
-
     private String status;
 
-    /**
-     * 用户类型，0-后台用户 1-骑手
-     */
-    private String type;
-
     private String createTime;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public String getUsername() {
         return username;
@@ -58,12 +42,12 @@ public class SysUser {
         this.username = username;
     }
 
-    public String getName() {
-        return name;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getRoleId() {
@@ -122,46 +106,11 @@ public class SysUser {
         this.status = status;
     }
 
-    public String getJobNumber() {
-        return jobNumber;
-    }
-
-    public void setJobNumber(String jobNumber) {
-        this.jobNumber = jobNumber;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
-    }
-
-    @Override
-    public String toString() {
-        return "SysUser{" +
-                "userId='" + userId + '\'' +
-                ", username='" + username + '\'' +
-                ", name='" + name + '\'' +
-                ", roleId='" + roleId + '\'' +
-                ", roleName='" + roleName + '\'' +
-                ", salt='" + salt + '\'' +
-                ", password='" + password + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", email='" + email + '\'' +
-                ", jobNumber='" + jobNumber + '\'' +
-                ", status='" + status + '\'' +
-                ", type='" + type + '\'' +
-                ", createTime='" + createTime + '\'' +
-                '}';
     }
 }
