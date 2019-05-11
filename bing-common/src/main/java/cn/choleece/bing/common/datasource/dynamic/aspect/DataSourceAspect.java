@@ -2,6 +2,8 @@ package cn.choleece.bing.common.datasource.dynamic.aspect;
 
 import cn.choleece.bing.common.datasource.dynamic.annotation.DataSource;
 import cn.choleece.bing.common.datasource.dynamic.config.DynamicContextHolder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -20,6 +22,8 @@ import java.lang.reflect.Method;
 @Aspect
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class DataSourceAspect {
+
+    private static final Logger logger = LogManager.getLogger(DataSourceAspect.class);
 
     @Pointcut("@annotation(cn.choleece.bing.common.datasource.dynamic.annotation.DataSource) " +
             "|| @within(cn.choleece.bing.common.datasource.dynamic.annotation.DataSource)")
@@ -43,6 +47,7 @@ public class DataSourceAspect {
                 value = targetDataSource.value();
             }
 
+            logger.info("数据源切换到{}", value);
             DynamicContextHolder.push(value);
         }
 

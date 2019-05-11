@@ -1,5 +1,7 @@
 package cn.choleece.bing.admin.controller;
 
+import cn.choleece.bing.common.util.R;
+import cn.choleece.bing.ums.service.ISysRoleService;
 import cn.choleece.bing.ums.service.ISysUserService;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.logging.log4j.LogManager;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class IndexController {
     @Autowired
     private ISysUserService userService;
+    @Autowired
+    private ISysRoleService sysRoleService;
 
     private static final Logger logger = LogManager.getLogger(IndexController.class);
 
@@ -30,6 +34,16 @@ public class IndexController {
         String username = json.getString("username");
         String password = json.getString("password");
         return userService.login(username, password);
+    }
+
+    @RequestMapping("/first")
+    public String defaultDataSource() {
+        return R.ok(sysRoleService.listRole());
+    }
+
+    @RequestMapping("/second")
+    public String secondDataSource() {
+        return R.ok(sysRoleService.secondListSysRole());
     }
 
 }

@@ -1,5 +1,7 @@
 package cn.choleece.bing.ums.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+
 /**
  * 系统角色
  * @author choleece
@@ -7,6 +9,7 @@ package cn.choleece.bing.ums.entity;
  */
 public class SysRole {
 
+    @TableId
     private String roleId;
 
     private String roleName;

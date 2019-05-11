@@ -1,5 +1,7 @@
 package cn.choleece.bing.ums.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+
 /**
  * 系统菜单
  * @author choleece
@@ -10,6 +12,7 @@ public class SysMenu {
     /**
      * 菜单id
      */
+    @TableId
     private String menuId;
 
     /**

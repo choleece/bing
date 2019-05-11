@@ -80,7 +80,7 @@ public class ShiroConfig {
 
         // 自定义拦截规则
         Map<String, String> shiroFilterMap = new HashMap<>(2);
-        shiroFilterMap.put("/index/login", "anon");
+        shiroFilterMap.put("/index/*", "anon");
         shiroFilterMap.put("/401", "anon");
         shiroFilterMap.put("/**", "jwt");
 

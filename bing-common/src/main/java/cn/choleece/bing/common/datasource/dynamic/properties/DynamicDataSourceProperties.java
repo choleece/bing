@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by choleece on 2019/4/28.
  */
-@ConfigurationProperties(prefix = "dynamic")
+//@ConfigurationProperties(prefix = "dynamic")
 public class DynamicDataSourceProperties {
 
     private Map<String, DataSourceProperties> datasource = new LinkedHashMap<>();

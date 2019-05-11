@@ -1,6 +1,6 @@
 package cn.choleece.bing.ums.controller;
 
-import cn.choleece.bing.ums.service.ISysSoleService;
+import cn.choleece.bing.ums.service.ISysRoleService;
 import cn.choleece.bing.common.util.R;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/sys/role")
 public class SysRoleController {
     @Autowired
-    private ISysSoleService sysSoleService;
+    private ISysRoleService sysSoleService;
 
     private static final Logger looger = LogManager.getLogger(SysRoleController.class);
 

@@ -1,5 +1,7 @@
 package cn.choleece.bing.ums.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+
 /**
  * 系统后台用户
  * @author choleece
@@ -7,6 +9,7 @@ package cn.choleece.bing.ums.entity;
  */
 public class SysUser {
 
+    @TableId
     private String userId;
 
     private String username;
