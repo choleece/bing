@@ -144,7 +144,7 @@ public class JwtUtil {
         System.out.println("username jwt: " + usernameJwt);
         System.out.println("user jwt: " + userJwt);
 
-        String jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDI1MTc2MDcsInVzZXIiOiJ7XCJ1aWRcIjpcIjFcIixcInVzZXJuYW1lXCI6XCJjaG9sZWVjZVwifSJ9.KBEy76Oj1vgzLOxPLhIAi0B15WI3neDYQwVKMWuGgsw";
+        String jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTc2NzE3NDQsInVzZXIiOiJ7XCJ1aWRcIjpcIjFcIixcInVzZXJuYW1lXCI6XCJhZG1pblwiLFwicm9sZUlkXCI6XCIxXCJ9In0.piZKG8B9Uw6aNyOSm3lsnSWWBZ-bYthYgoK3cx2Njuo";
 
         LoginUser user1 = new LoginUser();
         user1.setUid("2");
@@ -153,7 +153,7 @@ public class JwtUtil {
         System.out.println(verify(jwt, JWT_USER_KEY));
 
         System.out.println("get username from token: " + getUsername(usernameJwt));
-        System.out.println("get user from token: " + getLoginUser(userJwt));
+        System.out.println("get user from token: " + getLoginUser(jwt));
         System.out.println("get userId from token: " + getUid(userJwt));
     }
 }

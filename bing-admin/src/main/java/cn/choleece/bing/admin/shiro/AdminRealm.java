@@ -93,6 +93,7 @@ public class AdminRealm extends BingRealm {
         LoginUser loginUser = new LoginUser();
         loginUser.setUid(user.getId());
         loginUser.setUsername(user.getUsername());
+        loginUser.setRoleId(user.getRoleId());
 
         // 将登录用户信息放到session里，current user 可以根据需要，存放不同的信息
         session.setAttribute(CommonConstant.CURRENT_USER, loginUser);
@@ -101,8 +102,6 @@ public class AdminRealm extends BingRealm {
         List<String> perms = baseRoleMapper.listRolePermissions(user.getId());
         j2CacheUtil.put(J2CacheUtil.SYS_PERM_CACHE_NAME, AdminConstant.PERMS_LIST + "-" + user.getId(), perms);
 
-
-        loginUser.setRoleId(user.getRoleId());
         return new SimpleAuthenticationInfo(loginUser, authenticationToken.getCredentials(), "realm");
     }
 }

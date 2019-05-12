@@ -1,6 +1,7 @@
 package cn.choleece.bing.common.config;
 
 import cn.choleece.bing.common.resolver.CurrentUserHandlerMethodArgumentResolver;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @author choleece
  * @date 2018/10/10
  */
+@Configuration
 public class ApplicationConfig implements WebMvcConfigurer {
 
     @Override

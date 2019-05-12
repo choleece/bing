@@ -1,11 +1,14 @@
 package cn.choleece.bing.ums.controller;
 
+import cn.choleece.bing.common.annotation.CurrentUser;
 import cn.choleece.bing.common.constant.CommonConstant;
 import cn.choleece.bing.common.util.R;
+import cn.choleece.bing.common.vo.LoginUser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,12 +21,12 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/sys/user")
-public class SysUserController extends BaseController{
+public class SysUserController extends BaseController {
 
     private static final Logger logger = LogManager.getLogger(SysUserController.class);
 
 
-    @GetMapping("/")
+    @GetMapping("")
     public String listUser(HttpServletRequest request) {
 
         System.out.println(request.getSession().getId());
@@ -32,6 +35,12 @@ public class SysUserController extends BaseController{
         System.out.println(SecurityUtils.getSubject().getSession().getId());
         System.out.println(SecurityUtils.getSubject().getSession().getAttribute(CommonConstant.CURRENT_USER));
 
+        return R.ok();
+    }
+
+    @GetMapping("/{userId}")
+    public String getUser(@CurrentUser LoginUser loginUser, @PathVariable String userId) {
+        System.out.println(loginUser.toString());
         return R.ok();
     }
 }

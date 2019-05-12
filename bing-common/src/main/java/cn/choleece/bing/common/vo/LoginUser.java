@@ -87,5 +87,15 @@ public class LoginUser implements Serializable {
             return new LoginUser(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "LoginUser{" +
+                "uid='" + uid + '\'' +
+                ", username='" + username + '\'' +
+                ", roleId='" + roleId + '\'' +
+                ", token='" + token + '\'' +
+                '}';
+    }
 }
 

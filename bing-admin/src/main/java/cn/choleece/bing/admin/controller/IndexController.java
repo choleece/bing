@@ -6,6 +6,8 @@ import cn.choleece.bing.ums.service.ISysUserService;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.shiro.authz.UnauthenticatedException;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,4 +48,13 @@ public class IndexController {
         return R.ok(sysRoleService.secondListSysRole());
     }
 
+    @RequestMapping("/401")
+    public String unauthorized() {
+        throw new UnauthorizedException();
+    }
+
+    @RequestMapping("/403")
+    public void unAuthentication() {
+        new UnauthenticatedException();
+    }
 }
