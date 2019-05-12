@@ -55,4 +55,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         LoginUser loginUser = (LoginUser)SecurityUtils.getSubject().getPrincipal();
         return R.ok(JwtUtil.sign(loginUser));
     }
+
+    @Override
+    public SysUser getCurrentUserRoleInfo(String userId) {
+        return userMapper.getUserRoleByUserId(userId);
+    }
 }

@@ -1,5 +1,6 @@
 package cn.choleece.bing.ums.controller;
 
+import cn.choleece.bing.common.base.BaseController;
 import cn.choleece.bing.common.constant.CommonConstant;
 import com.google.code.kaptcha.Producer;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,28 +1,17 @@
 package cn.choleece.bing.ums.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
+import cn.choleece.bing.common.base.BaseEntity;
 
 /**
  * 系统角色
  * @author choleece
  * @date 2018/11/2
  */
-public class SysRole {
-
-    @TableId
-    private String roleId;
+public class SysRole extends BaseEntity {
 
     private String roleName;
 
     private String createTime;
-
-    public String getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
-    }
 
     public String getRoleName() {
         return roleName;

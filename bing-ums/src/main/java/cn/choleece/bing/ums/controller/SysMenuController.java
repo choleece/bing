@@ -1,5 +1,6 @@
 package cn.choleece.bing.ums.controller;
 
+import cn.choleece.bing.common.base.BaseController;
 import cn.choleece.bing.ums.service.ISysMenuService;
 import cn.choleece.bing.common.util.HttpUtil;
 import cn.choleece.bing.common.util.LogUtil;
@@ -42,10 +43,5 @@ public class SysMenuController extends BaseController {
         LogUtil.info(logger, "get user side menus", " uid: " + uid);
 
         return R.ok(sysMenuService.listUserMenu(uid));
-    }
-
-    @GetMapping("/test")
-    public String listTest() {
-        return R.ok();
     }
 }

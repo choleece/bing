@@ -18,4 +18,11 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * @return
      */
     SysUser getUserByUsername(String username);
+
+    /**
+     * 通过用户id获取用户&角色信息
+     * @param userId
+     * @return
+     */
+    SysUser getUserRoleByUserId(String userId);
 }

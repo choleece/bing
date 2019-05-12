@@ -10,4 +10,12 @@
         WHERE su.username = #{usernmae}
     </select>
 
+    <select id="getUserRoleByUserId" resultType="cn.choleece.bing.ums.entity.SysUser">
+        SELECT su.username, sr.role_name, su.nick_name
+        FROM sys_user su
+        INNER JOIN sys_user_role sur on sur.user_id = su.id
+        INNER JOIN sys_role sr on sr.id = sur.role_id
+        WHERE su.id = #{userId}
+    </select>
+
 </mapper>

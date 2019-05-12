@@ -20,6 +20,7 @@ public class SysUser extends BaseEntity {
     @TableField(exist = false)
     private String roleId;
 
+    @TableField(exist = false)
     private String roleName;
 
     private String salt;

@@ -26,4 +26,11 @@ public interface ISysUserService extends IService<SysUser> {
      * @throws Exception
      */
     String login(String username, String pwd);
+
+    /**
+     * 通过用户ID获取用户&角色信息
+     * @param userId
+     * @return
+     */
+    SysUser getCurrentUserRoleInfo(String userId);
 }
