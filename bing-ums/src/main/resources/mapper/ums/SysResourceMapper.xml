@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.choleece.bing.ums.mapper.SysResourceMapper">
+
+    <select id="listResourceByUserId" resultType="java.util.Map">
+        SELECT DISTINCT
+            r.id,
+            r.`name`,
+            r.icon,
+            r.url,
+            r.img_url,
+            r.identify,
+            r.snum,
+            r.type,
+            r.parent_id
+        FROM
+            sys_resource r,
+            sys_role_resource rr,
+          sys_user_role ur
+        WHERE
+            r.del_status = 0
+        AND r.use_status = 1
+        AND r.id != 0
+        AND r.type != 3
+        AND r.id = rr.resource_id
+        and ur.role_id = rr.role_id
+        and ur.user_id = #{userId}
+        ORDER BY
+            r.snum
+    </select>
+
+    <select id="listUserFunByMenu" resultType="java.util.Map">
+        select DISTINCT r.id, r.name, r.icon, r.url, r.img_url, r.identify, r.snum, r.type, r.parent_id
+        from sys_resource r, sys_role_resource rr,
+		(
+		  select ur.role_id
+		  from sys_user_role ur
+		  where ur.user_id = #{userId}
+		  UNION
+		  select gr.role_id
+		  from  sys_group g, sys_group_role gr, sys_group_user gu
+		  where g.id = gr.group_id and g.id = gu.group_id and gu.user_id = #{userId}
+		) rl
+		where r.del_status = 0 and r.use_status = 1  and r.type = 3 and r.id = rr.resource_id and rr.role_id = rl.role_id
+		and r.parent_id in (select  id from sys_resource where identify = #{menu})
+		order by r.snum
+    </select>
+
+    <select id="listUserPermissions" resultType="java.lang.String">
+        select perms from sys_resource sr
+        inner join sys_role_resource srr on sr.id = srr.resource_id
+        inner join sys_user_role sur on sur.role_id = srr.role_id
+        where sur.user_id = #{userId}
+    </select>
+
+</mapper>

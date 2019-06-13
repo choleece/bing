@@ -1,8 +1,12 @@
 package cn.choleece.bing.ums.mapper;
 
-import cn.choleece.bing.ums.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import cn.choleece.bing.ums.entity.SysUser;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  *
@@ -13,16 +17,18 @@ import org.springframework.stereotype.Repository;
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
     /**
-     * 通过用户名获取唯一用户
-     * @param username
+     * 通过用户名取用户信息
+     * @param userName
      * @return
      */
-    SysUser getUserByUsername(String username);
+    SysUser getUserInfoByUserName(String userName);
 
     /**
-     * 通过用户id获取用户&角色信息
-     * @param userId
+     * 分页查询
+     * @param page
+     * @param keyword
      * @return
      */
-    SysUser getUserRoleByUserId(String userId);
+    List<SysUser> userPageList(Page page, @Param("keyword") String keyword);
+
 }

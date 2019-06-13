@@ -12,6 +12,10 @@ public class SnowFlakeUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(SnowFlakeUtil.class);
 
+    public static String getStrId() {
+        return String.valueOf(getId());
+    }
+
     public static long getId() {
         return SingletonSnowFlake.getInstance().next();
     }
@@ -23,14 +27,14 @@ public class SnowFlakeUtil {
          */
         private static final String SNOWFLAKE_MACHINE_NO = "snowflake.machine.no";
 
-        private static Snowflake snowflake;
+        private static volatile Snowflake snowflake;
 
         public static Snowflake getInstance() {
-            synchronized (snowflake) {
+            synchronized (SingletonSnowFlake.class) {
                 if (snowflake == null) {
                     int machineNo = PropertiesFileUtil.getInstance().getInt(SNOWFLAKE_MACHINE_NO);
                     logger.info("snowflake machine no " + machineNo);
-                    return new Snowflake(machineNo);
+                    snowflake = new Snowflake(machineNo);
                 }
                 return snowflake;
             }

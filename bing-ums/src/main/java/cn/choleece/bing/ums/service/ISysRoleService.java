@@ -3,8 +3,6 @@ package cn.choleece.bing.ums.service;
 import cn.choleece.bing.ums.entity.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import java.util.List;
-
 /**
  * role service
  * @author choleece
@@ -13,14 +11,23 @@ import java.util.List;
 public interface ISysRoleService extends IService<SysRole> {
 
     /**
-     * 获取系统的角色
-     * @return
+     * 更新角色的资源
+     * @param roleId
+     * @param resourceIds
      */
-    List<SysRole> listRole();
+    void updateRoleRelResource(String roleId, String[] resourceIds);
 
     /**
-     *
+     * 判断角色是否关联资源
+     * @param roleId
      * @return
      */
-    List<SysRole> secondListSysRole();
+    boolean hasRoleRelResource(String roleId);
+
+    /**
+     * 判断角色是否关联用户
+     * @param roleId
+     * @return
+     */
+    boolean hasRoleRelUser(String roleId);
 }

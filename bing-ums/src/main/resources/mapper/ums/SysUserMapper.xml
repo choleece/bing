@@ -3,19 +3,54 @@
 
 <mapper namespace="cn.choleece.bing.ums.mapper.SysUserMapper">
 
-    <select id="getUserByUsername" resultType="cn.choleece.bing.ums.entity.SysUser">
-        SELECT su.id, su.username, su.password, su.status, su.salt, sur.role_id
-        FROM sys_user su
-        INNER JOIN sys_user_role sur on sur.user_id = su.id
-        WHERE su.username = #{usernmae}
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.choleece.bing.ums.entity.SysUser">
+        <id column="id" property="id" />
+        <result column="user_name" property="userName"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="sex" property="sex" />
+        <result column="phone" property="phone" />
+        <result column="email" property="email" />
+        <result column="remark" property="remark" />
+        <result column="create_user" property="createUser" />
+        <result column="create_date" property="createDate" />
+        <result column="password" property="password" />
+        <result column="usable" property="usable" />
+        <collection property="roleList" ofType="cn.choleece.bing.ums.entity.SysRole">
+            <id column="role_id" property="id"/>
+            <result column="role_name" property="roleName"/>
+            <result column="role_remark" property="remark"/>
+        </collection>
+    </resultMap>
+
+    <select id="userPageList" resultMap="BaseResultMap">
+        SELECT
+            u.*, r.id AS `role_id`,
+            r.role_name,
+            r.remark AS `role_remark`
+        FROM
+            sys_user u
+        LEFT JOIN sys_user_role ur ON u.id = ur.user_id
+        LEFT JOIN sys_role r ON r.id = ur.role_id
+        <where>
+            <if test="keyword != null and keyword != ''">
+              user_name LIKE concat (#{keyword}, '%')
+            </if>
+            and del_status = 0
+        </where>
+
     </select>
 
-    <select id="getUserRoleByUserId" resultType="cn.choleece.bing.ums.entity.SysUser">
-        SELECT su.username, sr.role_name, su.nick_name
-        FROM sys_user su
-        INNER JOIN sys_user_role sur on sur.user_id = su.id
-        INNER JOIN sys_role sr on sr.id = sur.role_id
-        WHERE su.id = #{userId}
+    <select id="getUserInfoByUserName" resultMap="BaseResultMap">
+        SELECT
+            u.*, r.id AS `role_id`,
+            r.role_name,
+            r.remark AS `role_remark`
+        FROM
+            sys_user u
+        LEFT JOIN sys_user_role ur ON u.id = ur.user_id
+        LEFT JOIN sys_role r ON r.id = ur.role_id
+        WHERE u.user_name = #{userName}
+        AND del_status = 0
     </select>
-
 </mapper>

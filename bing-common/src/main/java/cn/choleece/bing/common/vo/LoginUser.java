@@ -1,6 +1,7 @@
 package cn.choleece.bing.common.vo;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 放在jwt里的用户信息
@@ -13,20 +14,15 @@ public class LoginUser implements Serializable {
 
     private String uid;
 
-    private String username;
+    private String userName;
+
+    private String nickName;
 
     private String roleId;
 
+    private List roleList;
+
     private String token;
-
-    public LoginUser() {
-    }
-
-    private LoginUser(LoginUser.LoginUserBuilder builder) {
-        this.uid = builder.uid;
-        this.token = builder.token;
-        this.username = builder.username;
-    }
 
     public String getUid() {
         return uid;
@@ -36,20 +32,20 @@ public class LoginUser implements Serializable {
         this.uid = uid;
     }
 
-    public String getToken() {
-        return token;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getUsername() {
-        return username;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getRoleId() {
@@ -60,42 +56,20 @@ public class LoginUser implements Serializable {
         this.roleId = roleId;
     }
 
-    public static class LoginUserBuilder {
-
-        private String uid;
-
-        private String token;
-
-        private String username;
-
-        public LoginUserBuilder uid(String uid) {
-            this.uid = uid;
-            return this;
-        }
-
-        public LoginUserBuilder token(String token) {
-            this.token = token;
-            return this;
-        }
-
-        public LoginUserBuilder username(String username) {
-            this.username = username;
-            return this;
-        }
-
-        public LoginUser build() {
-            return new LoginUser(this);
-        }
+    public List getRoleList() {
+        return roleList;
     }
 
-    @Override
-    public String toString() {
-        return "LoginUser{" +
-                "uid='" + uid + '\'' +
-                ", username='" + username + '\'' +
-                ", roleId='" + roleId + '\'' +
-                ", token='" + token + '\'' +
-                '}';
+    public void setRoleList(List roleList) {
+        this.roleList = roleList;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
 

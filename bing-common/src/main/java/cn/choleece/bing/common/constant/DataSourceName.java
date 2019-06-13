@@ -1,7 +1,9 @@
 package cn.choleece.bing.common.constant;
 
 /**
- * Created by choleece on 2019/4/28.
+ *
+ * @author choleece
+ * @date 2019/4/28
  */
 public interface DataSourceName {
 

@@ -1,7 +1,10 @@
 package cn.choleece.bing.ums.service;
 
 import cn.choleece.bing.ums.entity.SysUser;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -11,26 +14,27 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface ISysUserService extends IService<SysUser> {
 
     /**
-     * 通过用户名获取用户，在注册或创建用户时，用户名不能重复
-     * @param username
-     * @return
-     * @throws Exception
-     */
-    SysUser getUserByName(String username);
-
-    /**
      * login
      * @param username
      * @param pwd
+     * @param request
      * @return
      * @throws Exception
      */
-    String login(String username, String pwd);
+    String login(String username, String pwd, HttpServletRequest request);
 
     /**
-     * 通过用户ID获取用户&角色信息
-     * @param userId
+     * 通过用户名获取用户信息
+     * @param userName
      * @return
      */
-    SysUser getCurrentUserRoleInfo(String userId);
+    String getUserInfoByUserName(String userName);
+
+    /**
+     * 分页数据传
+     * @param page
+     * @param keyword
+     * @return
+     */
+    Page<SysUser> pageList(Page page, String keyword);
 }

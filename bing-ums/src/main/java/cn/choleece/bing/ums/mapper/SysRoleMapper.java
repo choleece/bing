@@ -1,10 +1,8 @@
 package cn.choleece.bing.ums.mapper;
 
-import cn.choleece.bing.ums.entity.SysRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import cn.choleece.bing.ums.entity.SysRole;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  *
@@ -12,11 +10,6 @@ import java.util.List;
  * @date 2018/11/2
  */
 @Repository
-public interface SysRoleMapper extends BaseMapper<SysRole>{
+public interface SysRoleMapper extends BaseMapper<SysRole> {
 
-    /**
-     * 获取系统的角色
-     * @return
-     */
-    List<SysRole> listSysRole();
 }

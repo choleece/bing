@@ -135,7 +135,7 @@ public class JwtUtil {
         String username = "choleece";
         String uid = "1";
         LoginUser user = new LoginUser();
-        user.setUsername(username);
+        user.setUserName(username);
         user.setUid(uid);
 
         String usernameJwt = sign(username);
@@ -148,7 +148,7 @@ public class JwtUtil {
 
         LoginUser user1 = new LoginUser();
         user1.setUid("2");
-        user.setUsername("choleece");
+        user.setUserName("choleece");
 
         System.out.println(verify(jwt, JWT_USER_KEY));
 

@@ -47,6 +47,7 @@
         <!--这里的name，通过LogManager.getLogger("optInfo")获取，记录的格式，会如appender 为 optInfo的格式输出-->
         <AsyncLogger name="optInfo" level="info" additivity="false">
             <AppenderRef ref="optInfo"/>
+            <AppenderRef ref="Console"/>
         </AsyncLogger>
     </Loggers>
 </Configuration>
