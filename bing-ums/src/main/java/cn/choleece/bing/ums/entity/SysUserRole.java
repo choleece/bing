@@ -22,11 +22,6 @@ public class SysUserRole extends BaseEntity implements Serializable {
 	 */
 	private String roleId;
 
-	/** 
-	 * 设置用户与权限关联的用户id.
-	 */
-	private String authUserId;
-
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
 	}
@@ -47,21 +42,12 @@ public class SysUserRole extends BaseEntity implements Serializable {
 		this.roleId = roleId;
 	}
 
-	public String getAuthUserId() {
-		return authUserId;
-	}
-
-	public void setAuthUserId(String authUserId) {
-		this.authUserId = authUserId;
-	}
-
 	@Override
 	public String toString() {
 		return "SysUserRole{" +
 				"id='" + super.getId() + '\'' +
 				", userId='" + userId + '\'' +
 				", roleId='" + roleId + '\'' +
-				", authUserId='" + authUserId + '\'' +
 				'}';
 	}
 }

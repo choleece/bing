@@ -86,7 +86,6 @@ public class SysUserController extends BaseController {
             sysUser.setSalt(user.getSalt());
         }
         sysUser.setDelStatus(0);
-        sysUser.setCreateDate(new Date());
         userService.saveOrUpdate(sysUser);
         return R.ok();
     }
@@ -160,7 +159,6 @@ public class SysUserController extends BaseController {
             userRole.setId(SnowFlakeUtil.getStrId());
             userRole.setUserId(userId);
             userRole.setRoleId(roleId);
-            userRole.setAuthUserId(loginUser.getUid());
             userRoles.add(userRole);
         }
         userRoleService.saveUserRoles(userId, userRoles);

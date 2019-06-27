@@ -4,7 +4,6 @@ import cn.choleece.bing.common.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,8 +50,6 @@ public class SysUser extends BaseEntity implements Serializable {
 	 */
 	private String remark;
 
-
-
 	/** 
 	 * 创建人.
 	 */
@@ -61,7 +58,7 @@ public class SysUser extends BaseEntity implements Serializable {
 	/** 
 	 * 创建时间.
 	 */
-	private Date createDate;
+	private String createTime;
 
 	/** 
 	 * 0-正常，1-删除.
@@ -86,7 +83,6 @@ public class SysUser extends BaseEntity implements Serializable {
 
 	@TableField(exist = false)
 	private String roleId;
-
 
 	public String getUserName() {
 		return this.userName;
@@ -144,8 +140,6 @@ public class SysUser extends BaseEntity implements Serializable {
 		this.remark = remark;
 	}
 
-
-
 	public String getCreateUser() {
 		return this.createUser;
 	}
@@ -153,12 +147,13 @@ public class SysUser extends BaseEntity implements Serializable {
 	public void setCreateUser(String createUser) {
 		this.createUser = createUser;
 	}
-	public Date getCreateDate() {
-		return this.createDate;
+
+	public String getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
 	}
 
 	public Integer getDelStatus() {
@@ -213,7 +208,7 @@ public class SysUser extends BaseEntity implements Serializable {
 				", email='" + email + '\'' +
 				", remark='" + remark + '\'' +
 				", createUser='" + createUser + '\'' +
-				", createDate=" + createDate +
+				", createTime=" + createTime +
 				", delStatus=" + delStatus +
 				", password='" + password + '\'' +
 				", usable='" + usable + '\'' +
