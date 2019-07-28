@@ -39,3 +39,7 @@ spring:
             wall:
               config:
                 multi-statement-allow: true
+
+  elasticsearch:
+    rest:
+      uris: http://localhost:9200
