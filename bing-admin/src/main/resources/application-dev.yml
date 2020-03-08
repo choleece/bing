@@ -39,6 +39,7 @@ spring:
             wall:
               config:
                 multi-statement-allow: true
+          aop-patterns: cn.choleece.bing.servuce.*
 
   elasticsearch:
     rest:

@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "value": 1,
+      "label": "aaa"
+    },
+    {
+      "value": 2,
+      "label": "bbb"
+    },
+    {
+      "value": 3,
+      "label": "ccc"
+    },
+    {
+      "value": 4,
+      "label": "ddd"
+    },
+    {
+      "value": 5,
+      "label": "eee"
+    }
+  ]
+}

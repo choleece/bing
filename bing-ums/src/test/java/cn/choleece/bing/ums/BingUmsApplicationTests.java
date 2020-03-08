@@ -12,5 +12,4 @@ public class BingUmsApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }
